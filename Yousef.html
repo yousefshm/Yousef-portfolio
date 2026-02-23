@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yousef – Data Engineer & Analyst</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%23fcd34d' d='M256 0c-74.4 0-141.6 20.3-188.8 54C20 87.7 0 119.8 0 144c0 24.2 20 56.3 67.2 89.9C114.4 267.7 181.6 288 256 288s141.6-20.3 188.8-54C492 200.3 512 168.2 512 144c0-24.2-20-56.3-67.2-89.9C397.6 20.3 330.4 0 256 0zm0 352c-74.4 0-141.6-20.3-188.8-54C20 264.3 0 232.2 0 208v160c0 24.2 20 56.3 67.2 89.9C114.4 491.7 181.6 512 256 512s141.6-20.3 188.8-54C492 424.3 512 392.2 512 368V208c0 24.2-20 56.3-67.2 89.9C397.6 331.7 330.4 352 256 352z'/></svg>" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { heading: ["Space Grotesk","sans-serif"], body: ["Inter","sans-serif"] },
+          colors: {
+            /* 🟠 Cloud Tech (Amber) Palette */
+            sky: { 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b' },
+            slate: { 300: '#d4d4d4', 400: '#a3a3a3', 800: '#262626', 900: '#171717' }
+          },
+          animation: {
+            "spin-slow":"spin 15s linear infinite",
+            "float":"float 4s ease-in-out infinite",
+            "pulse-ring":"pulseRing 3s ease-out infinite",
+            "blink":"blink 1s step-end infinite",
+          },
+          keyframes: {
+            float:{"0%,100%":{transform:"translateY(0px)"},"50%":{transform:"translateY(-12px)"}},
+            pulseRing:{"0%":{transform:"scale(0.9)",opacity:"0.5"},"100%":{transform:"scale(1.4)",opacity:"0"}},
+            blink:{"0%,100%":{opacity:"1"},"50%":{opacity:"0"}},
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html{font-family:"Inter",sans-serif}
+    body{background:#171717;color:#d4d4d4;overflow-x:hidden}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:#171717}
+    ::-webkit-scrollbar-thumb{background:#fcd34d;border-radius:9999px}
+    
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.02;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:200px}
+    
+    .glass{background:rgba(38,38,38,.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(252,211,77,.12)}
+    .grad-text{background:linear-gradient(135deg,#fcd34d 0%,#d4d4d4 50%,#f1f5f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    
+    /* Asymmetrical Cards */
+    .geo-card {border-radius: 1.5rem 0.25rem 1.5rem 0.25rem;}
+    
+    .grad-border{position:relative;}
+    .grad-border::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+      background:linear-gradient(135deg,rgba(252,211,77,0.3),rgba(212,212,212,0.2),rgba(241,245,249,0.1));
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:destination-out;mask-composite:exclude;pointer-events:none;transition:background .3s}
+    .grad-border:hover::before{background:linear-gradient(135deg,#fcd34d,#d4d4d4,#a3a3a3)}
+    
+    .glow-ring{box-shadow:0 0 0 2px #fcd34d,0 0 30px rgba(252,211,77,0.3),0 0 60px rgba(252,211,77,0.1)}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    #typed-cursor{display:inline-block;color:#fcd34d}
+    .section-heading::after{content:"";display:block;width:60px;height:3px;background:linear-gradient(90deg,#fcd34d,#d4d4d4);border-radius:9999px;margin:12px auto 0}
+    
+    .project-card{transition:transform .3s ease,box-shadow .3s ease}
+    .project-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(252,211,77,.1)}
+    
+    #mobile-menu{transition:max-height .4s ease,opacity .4s ease}
+    #mobile-menu.hidden{max-height:0;overflow:hidden;opacity:0}
+    #mobile-menu.open{max-height:600px;opacity:1}
+    .skill-card:hover .skill-icon{filter:drop-shadow(0 0 12px rgba(252,211,77,0.6))}
+
+    /* Data Blocks (Skills & Tech) */
+    .data-block {
+      display: inline-block; padding: 6px 14px; font-size: .75rem; font-weight: 500;
+      color: #d4d4d4; background: rgba(23, 23, 23, 0.7);
+      border: 1px solid rgba(252,211,77,0.1); border-left: 3px solid #fcd34d;
+      border-radius: 0 6px 6px 0; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .data-block:hover { transform: translateX(4px); box-shadow: 0 0 12px rgba(252,211,77,0.2); }
+    
+    .tech-badge {
+      display: inline-block; padding: 4px 10px; font-size: .65rem; font-weight: 600;
+      color: #d4d4d4; background: rgba(23, 23, 23, 0.7);
+      border: 1px solid rgba(252,211,77,0.1); border-left: 2px solid #a3a3a3;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Geometric Skew Buttons */
+    .btn-geo {
+      position: relative; display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 24px; font-size: .8rem; font-weight: 600; text-decoration: none;
+      z-index: 1; transition: color 0.3s;
+    }
+    .btn-geo::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      transform: skewX(-15deg); border-radius: 4px; transition: transform 0.3s, background 0.3s;
+    }
+    .btn-geo-primary { color: #171717; }
+    .btn-geo-primary::before { background: linear-gradient(135deg, #fcd34d, #d4d4d4); }
+    .btn-geo-primary:hover::before { transform: skewX(-15deg) scale(1.05); box-shadow: 0 0 20px rgba(252,211,77,0.4); }
+    
+    .btn-geo-secondary { color: #d4d4d4; }
+    .btn-geo-secondary::before { background: rgba(252,211,77,0.05); border: 1px solid rgba(252,211,77,0.3); }
+    .btn-geo-secondary:hover { color: #fcd34d; }
+    .btn-geo-secondary:hover::before { background: rgba(252,211,77,0.15); transform: skewX(-15deg) scale(1.05); }
+
+    /* Geometric Timeline */
+    .tl-container{position:relative;padding-left:2.5rem}
+    .tl-container::before{content:"";position:absolute;left:.65rem;top:0;bottom:0;width:2px;
+      background:linear-gradient(180deg,#fcd34d,#a3a3a3)}
+    .tl-marker {
+      position: absolute; left: -0.1rem; top: 1.2rem; width: 1.6rem; height: 1.6rem;
+      transform: rotate(45deg); display: flex; align-items: center; justify-content: center;
+      border: 2px solid; box-shadow: 0 0 10px currentColor; background: #171717; border-radius: 3px;
+    }
+    .tl-marker i { transform: rotate(-45deg); font-size: .55rem; }
+    .tl-item{position:relative;margin-bottom:2.5rem}
+
+    /* Navbar Active State */
+    .active-nav {
+      color: #fcd34d !important;
+      text-shadow: 0 0 12px rgba(252, 211, 77, 0.6);
+      border-bottom: 2px solid #fcd34d;
+      padding-bottom: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .cert-card{transition:transform .25s,box-shadow .25s}
+    .cert-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(252,211,77,.08)}
+  </style>
+</head>
+<body class="relative z-10">
+
+<nav id="navbar" class="fixed top-0 inset-x-0 z-50 glass transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#hero" class="font-heading text-xl font-bold grad-text tracking-widest uppercase">Yousef Almotawea</a>
+    <ul class="hidden md:flex gap-8 text-sm font-medium text-slate-300">
+      <li><a href="#about"      class="hover:text-sky-300 transition-colors duration-200">About</a></li>
+      <li><a href="#skills"     class="hover:text-sky-300 transition-colors duration-200">Skills</a></li>
+      <li><a href="#experience" class="hover:text-sky-300 transition-colors duration-200">Experience</a></li>
+      <li><a href="#projects"   class="hover:text-sky-300 transition-colors duration-200">Projects</a></li>
+      <li><a href="#awards"     class="hover:text-sky-300 transition-colors duration-200">Certifications</a></li>
+    </ul>
+    <a href="CV-yousef-almotawea.pdf" target="_blank" class="hidden md:inline-flex btn-geo btn-geo-primary text-xs py-2 px-5">
+      <i class="fa-solid fa-download mr-2"></i> Download CV
+    </a>
+    <button id="hamburger" aria-label="Toggle menu" class="md:hidden text-sky-400 text-2xl focus:outline-none">
+      <i id="ham-icon" class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden">
+    <ul class="flex flex-col gap-2 px-6 pb-6 text-sm font-medium text-slate-300 bg-slate-900/90 border-t border-slate-800">
+      <li><a href="#about"      class="block py-2 hover:text-sky-300 transition-colors" onclick="closeMobile()">About</a></li>
+      <li><a href="#skills"     class="block py-2 hover:text-sky-300 transition-colors" onclick="closeMobile()">Skills</a></li>
+      <li><a href="#experience" class="block py-2 hover:text-sky-300 transition-colors" onclick="closeMobile()">Experience</a></li>
+      <li><a href="#projects"   class="block py-2 hover:text-sky-300 transition-colors" onclick="closeMobile()">Projects</a></li>
+      <li><a href="#awards"     class="block py-2 hover:text-sky-300 transition-colors" onclick="closeMobile()">Certifications</a></li>
+      <li class="pt-2">
+        <a href="CV-yousef-almotawea.pdf" target="_blank" class="inline-flex btn-geo btn-geo-primary w-full mt-2">
+          <i class="fa-solid fa-download mr-2"></i> Download CV
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden pt-20">
+  <div class="pointer-events-none absolute inset-0 opacity-10"
+       style="background-image:linear-gradient(rgba(252,211,77,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(252,211,77,.3) 1px,transparent 1px);background-size:50px 50px"></div>
+  <div class="pointer-events-none absolute -top-40 -left-40 w-96 h-96 rounded-full bg-sky-500/10 blur-3xl"></div>
+  <div class="pointer-events-none absolute bottom-0 right-0 w-80 h-80 rounded-full bg-slate-500/10 blur-3xl"></div>
+
+  <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center w-full">
+    <div>
+      <span class="inline-block text-sm font-medium text-sky-400 tracking-[5px] uppercase mb-4 reveal">👋 Hello, World</span>
+      <h1 class="font-heading text-5xl sm:text-6xl lg:text-7xl font-black leading-tight mb-4 reveal" style="transition-delay:.1s">
+        <span class="text-slate-100 uppercase">Yousef</span><br><span class="grad-text">Data Engineer</span>
+      </h1>
+      <div class="font-heading text-lg sm:text-xl text-slate-400 mb-6 h-8 reveal tracking-wide" style="transition-delay:.2s">
+        <span id="typed-text"></span><span id="typed-cursor" class="animate-blink">|</span>
+      </div>
+      <p class="text-slate-400 text-base leading-relaxed max-w-lg mb-8 reveal" style="transition-delay:.3s">
+        Architecting robust data pipelines and transforming raw data into strategic insights. I specialize in building scalable analytical solutions and seamless integrations to drive business decisions.
+      </p>
+      <div class="flex flex-wrap gap-4 reveal" style="transition-delay:.4s">
+        <a href="#projects" class="btn-geo btn-geo-primary">
+          <i class="fa-solid fa-code-branch mr-2"></i> Explore Work
+        </a>
+        <a href="CV-yousef-almotawea.pdf" target="_blank" class="btn-geo btn-geo-secondary">
+          <i class="fa-solid fa-file-pdf mr-2"></i> View Resume
+        </a>
+      </div>
+      <div class="flex gap-6 mt-10 reveal" style="transition-delay:.5s">
+        
+        <a href="mailto:yousefalmotawea@gmail.com" aria-label="Email"
+        class="text-slate-500 hover:text-sky-300 transition-colors text-2xl" title="Email">
+        <i class="fa-solid fa-envelope"></i>
+        </a>
+        
+        <a href="https://www.linkedin.com/in/yousef-almotawea-cdmp%C2%AE-730003238/" target="_blank" aria-label="LinkedIn"
+        class="text-slate-500 hover:text-[#0077B5] transition-colors text-2xl" title="LinkedIn">
+        <i class="fa-brands fa-linkedin"></i>
+        </a>
+        
+        <a href="https://github.com/yousefshm" target="_blank" aria-label="GitHub"
+           class="text-slate-500 hover:text-sky-300 transition-colors text-2xl" title="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a href="https://wa.me/00966559535827" target="_blank" aria-label="WhatsApp"
+           class="text-slate-500 hover:text-green-400 transition-colors text-2xl" title="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="flex justify-center items-center reveal" style="transition-delay:.3s">
+      <div class="relative w-64 h-80 sm:w-72 sm:h-96 animate-float z-10">
+        
+        <div class="absolute inset-0 glass rounded-2xl p-5 flex flex-col shadow-2xl border-t-4 border-t-sky-400" style="background: rgba(23, 23, 23, 0.8);">
+          <div class="w-16 h-2 rounded-full bg-slate-900 mx-auto mb-5 shadow-inner"></div>
+          
+          <div class="w-full aspect-square bg-slate-800 rounded-xl overflow-hidden border-2 border-slate-700 relative group mb-4">
+            <img src="Yousef_portrait.jpg" alt="Yousef Portrait" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-sky-400/10 mix-blend-overlay"></div>
+          </div>
+          
+          <div class="mt-auto w-full text-center">
+            <div class="text-sky-400 font-mono text-[10px] mb-1 tracking-widest uppercase">ID: DE-2026-CDMP</div>
+            <h2 class="font-heading text-xl font-bold text-slate-100 uppercase tracking-widest">Yousef</h2>
+            <div class="w-full h-6 mt-2 opacity-40" style="background-image: repeating-linear-gradient(90deg, #a3a3a3 0, #a3a3a3 2px, transparent 2px, transparent 6px, #a3a3a3 6px, #a3a3a3 10px, transparent 10px, transparent 12px);"></div>
+          </div>
+        </div>
+
+        <div class="absolute -top-4 -right-4 sm:-right-6 glass geo-card px-3 py-1.5 text-xs font-bold text-slate-200 z-20 shadow-lg animate-float" style="animation-delay:.5s">
+          <i class="fa-solid fa-server text-sky-400 mr-2"></i> Data Engineer
+        </div>
+        <div class="absolute -bottom-4 -left-4 sm:-left-6 glass geo-card px-3 py-1.5 text-xs font-bold text-slate-200 z-20 shadow-lg animate-float" style="animation-delay:1s">
+          <i class="fa-solid fa-chart-pie text-sky-400 mr-2"></i> Data Analyst
+        </div>
+        <div class="absolute top-1/4 -left-6 sm:-left-10 glass geo-card px-3 py-1.5 text-xs font-bold text-slate-200 z-20 shadow-lg animate-float" style="animation-delay:1.5s">
+          <i class="fa-brands fa-python text-sky-400 mr-2"></i> Python
+        </div>
+        <div class="absolute bottom-1/4 -right-4 sm:-right-8 glass geo-card px-3 py-1.5 text-xs font-bold text-slate-200 z-20 shadow-lg animate-float" style="animation-delay:0.8s">
+          <i class="fa-solid fa-database text-sky-400 mr-2"></i> SQL
+        </div>
+        <div class="absolute top-[45%] -right-6 sm:-right-10 glass geo-card px-3 py-1.5 text-xs font-bold text-slate-200 z-20 shadow-lg animate-float" style="animation-delay:1.2s">
+          <i class="fa-solid fa-bolt text-sky-400 mr-2"></i> PySpark
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 inset-x-0 flex justify-center animate-bounce">
+    <a href="#about" class="text-slate-600 hover:text-sky-300 transition-colors"><i class="fa-solid fa-chevron-down text-2xl"></i></a>
+  </div>
+</section>
+
+<section id="about" class="py-24 relative bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+    
+    <div class="reveal">
+      <div class="glass grad-border geo-card p-0 shadow-2xl overflow-hidden border border-slate-700/50">
+        <div class="bg-slate-800/80 border-b border-slate-700/50 px-4 py-3 flex items-center gap-3">
+          <div class="flex gap-2">
+            <div class="w-3 h-3 rounded-full bg-rose-500/80 shadow-[0_0_8px_rgba(244,63,94,0.4)]"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-500/80 shadow-[0_0_8px_rgba(245,158,11,0.4)]"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div>
+          </div>
+          <span class="text-xs font-mono text-slate-400 ml-2">~/yousef/profile.json</span>
+        </div>
+        <div class="p-6 font-mono text-xs text-sky-300 leading-relaxed space-y-1 select-none">
+          <div><span class="text-slate-400">"name"</span>: <span class="text-sky-200">"Yousef"</span>,</div>
+          <div><span class="text-slate-400">"role"</span>: <span class="text-sky-200">"Data Engineer & Analyst"</span>,</div>
+          <div><span class="text-slate-400">"degree"</span>: <span class="text-sky-200">"BS Computer Science"</span>,</div>
+          <div><span class="text-slate-400">"certifications"</span>: [</div>
+          <div class="pl-4"><span class="text-sky-200">"CDMP Associate"</span>,</div>
+          <div class="pl-4"><span class="text-sky-200">"IBM Data Engineering Professional"</span></div>
+          <div>],</div>
+          <div><span class="text-slate-400">"core_focus"</span>: [</div>
+          <div class="pl-4"><span class="text-sky-200">"Data Pipelines & Architecture"</span>,</div>
+          <div class="pl-4"><span class="text-sky-200">"Business Intelligence"</span>,</div>
+          <div class="pl-4"><span class="text-sky-200">"Machine Learning Operations"</span></div>
+          <div>]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:.2s">
+      <h2 class="font-heading text-3xl font-bold text-slate-100 mb-2 section-heading text-left">
+        System <span class="grad-text">Architecture</span>
+      </h2>
+      <div class="w-16 h-0.5 bg-gradient-to-r from-sky-400 to-slate-400 mb-6 mt-3"></div>
+      <p class="text-slate-400 leading-relaxed text-base mb-6">
+        With a solid foundation in Computer Science and prestigious certifications including <span class="text-sky-300 font-semibold">CDMP Associate</span> and <span class="text-sky-300 font-semibold">IBM Data Engineering</span>, I architect systems that convert chaotic raw data into structured, high-value assets.
+      </p>
+      <p class="text-slate-400 leading-relaxed text-base mb-8">
+        My expertise lies at the intersection of Data Engineering and Business Intelligence — building robust, scalable PySpark ML pipelines while designing interactive dashboards that empower stakeholders to make data-driven decisions.
+      </p>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="glass grad-border geo-card p-4 text-center">
+          <div class="font-heading text-2xl font-bold grad-text">CDMP</div>
+          <div class="text-xs text-slate-500 mt-1 font-medium tracking-wide uppercase">Certified</div>
+        </div>
+        <div class="glass grad-border geo-card p-4 text-center">
+          <div class="font-heading text-2xl font-bold grad-text">IBM</div>
+          <div class="text-xs text-slate-500 mt-1 font-medium tracking-wide uppercase">Certified</div>
+        </div>
+        <div class="glass grad-border geo-card p-4 text-center">
+          <div class="font-heading text-2xl font-bold grad-text">CS</div>
+          <div class="text-xs text-slate-500 mt-1 font-medium tracking-wide uppercase">Degree</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14 reveal">
+      <h2 class="font-heading text-3xl font-bold text-slate-100 section-heading inline-block">
+        Technical <span class="grad-text">Arsenal</span>
+      </h2>
+      <p class="text-slate-400 mt-5 max-w-xl mx-auto text-sm">The tools, languages, and frameworks I use to engineer robust data solutions.</p>
+    </div>
+    
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <div class="skill-card glass grad-border geo-card p-6 reveal">
+        <div class="skill-icon text-4xl text-sky-400 mb-4"><i class="fa-solid fa-server"></i></div>
+        <h3 class="font-heading text-sm font-bold text-slate-100 mb-4 tracking-wider uppercase">Data Engineering</h3>
+        <div class="flex flex-wrap gap-2.5">
+          <span class="data-block">Python</span>
+          <span class="data-block">PySpark</span>
+          <span class="data-block">SQL (PostgreSQL/MySQL)</span>
+          <span class="data-block">NoSQL (MongoDB)</span>
+          <span class="data-block">ETL/ELT</span>
+          <span class="data-block">Data Warehousing</span>
+        </div>
+      </div>
+
+      <div class="skill-card glass grad-border geo-card p-6 reveal" style="transition-delay:.1s">
+        <div class="skill-icon text-4xl text-slate-300 mb-4"><i class="fa-solid fa-code"></i></div>
+        <h3 class="font-heading text-sm font-bold text-slate-100 mb-4 tracking-wider uppercase">Analytics & Languages</h3>
+        <div class="flex flex-wrap gap-2.5">
+          <span class="data-block">Advanced Excel</span>
+          <span class="data-block">Big Data</span>
+          <span class="data-block">Java</span>
+          <span class="data-block">JavaScript</span>
+          <span class="data-block">Shell / Bash</span>
+          <span class="data-block">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="skill-card glass grad-border geo-card p-6 reveal" style="transition-delay:.2s">
+        <div class="skill-icon text-4xl text-sky-200 mb-4"><i class="fa-solid fa-gears"></i></div>
+        <h3 class="font-heading text-sm font-bold text-slate-100 mb-4 tracking-wider uppercase">Tools & Governance</h3>
+        <div class="flex flex-wrap gap-2.5">
+          <span class="data-block">Apache Airflow</span>
+          <span class="data-block">Cloud (AWS)</span>
+          <span class="data-block">Git & GitHub</span>
+          <span class="data-block">Data Governance</span>
+          <span class="data-block">Agile Methodologies</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="py-24 relative bg-slate-900/50">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <h2 class="font-heading text-3xl font-bold text-slate-100 section-heading inline-block">
+        Professional <span class="grad-text">Log</span>
+      </h2>
+      <p class="text-slate-400 mt-5 max-w-xl mx-auto text-sm">Applying data strategies to solve real-world organizational challenges.</p>
+    </div>
+
+    <div class="tl-container">
+
+      <div class="tl-item reveal">
+        <div class="tl-marker text-sky-400 border-sky-400 shadow-[0_0_10px_rgba(251,191,36,0.5)]">
+          <i class="fa-solid fa-database"></i>
+        </div>
+        <div class="glass grad-border geo-card p-6 ml-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <h3 class="font-heading text-base font-bold text-slate-100">Data Analyst</h3>
+              <p class="text-xs text-slate-400 mt-0.5">The Only Agency (Perpetual)</p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 text-xs font-medium text-sky-300 bg-sky-400/10 border border-sky-400/20 px-3 py-1 rounded-sm whitespace-nowrap">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span> Present
+            </span>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-angle-right text-sky-500 mt-1 flex-shrink-0 text-xs"></i>
+              Collecting and cleaning social media data and analyzing KPIs to generate actionable insights.
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-angle-right text-sky-500 mt-1 flex-shrink-0 text-xs"></i>
+              Translating complex datasets into interactive BI dashboards (Looker Studio) for strategic decision-making.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal" style="transition-delay:.15s">
+        <div class="tl-marker text-slate-300 border-slate-300">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <div class="glass grad-border geo-card p-6 ml-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <h3 class="font-heading text-base font-bold text-slate-100">Data Architect & UI Developer</h3>
+              <p class="text-xs text-slate-400 mt-0.5">Easy Menu: a tech start-up</p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 text-xs font-medium text-sky-300 bg-sky-400/10 border border-sky-400/20 px-3 py-1 rounded-sm whitespace-nowrap">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span> Feb - Jun 2025
+            </span>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-angle-right text-slate-400 mt-1 flex-shrink-0 text-xs"></i>
+              Database Architecture: Designed and deployed the database schema, ensuring data integrity and optimizing queries for efficient data retrieval and storage.
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-angle-right text-slate-400 mt-1 flex-shrink-0 text-xs"></i>
+              Front-End Development: Developed responsive, user-friendly interfaces and integrated them seamlessly with the backend database to deliver a smooth user experience.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal" style="transition-delay:.3s">
+        <div class="tl-marker text-slate-400 border-slate-400">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="glass grad-border geo-card p-6 ml-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <h3 class="font-heading text-base font-bold text-slate-100">Freelance Full-Stack Dev</h3>
+              <p class="text-xs text-slate-400 mt-0.5">Aqari Link</p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 text-xs font-medium text-sky-300 bg-sky-400/10 border border-sky-400/20 px-3 py-1 rounded-sm whitespace-nowrap">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span> Mar - Apr 2025
+            </span>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-angle-right text-slate-400 mt-1 flex-shrink-0 text-xs"></i>
+              Developed a Full-Stack wordpress website for a real estate platform based in Syria.
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-angle-right text-slate-400 mt-1 flex-shrink-0 text-xs"></i>
+              Focused on extracting and converting regional data, subsequently uploading it to an OLTP database.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14 reveal">
+      <h2 class="font-heading text-3xl font-bold text-slate-100 section-heading inline-block">
+        Deployed <span class="grad-text">Solutions</span>
+      </h2>
+      <p class="text-slate-400 mt-5 max-w-xl mx-auto text-sm">Real-world data products focusing on architecture, ML, and business intelligence.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
+
+      <div class="project-card glass grad-border geo-card p-8 flex flex-col reveal">
+        <div class="flex justify-between items-start mb-6">
+          <div class="w-12 h-12 rounded-sm bg-gradient-to-br from-sky-400/10 to-orange-500/10 flex items-center justify-center text-sky-400 text-xl border border-sky-400/20 transform rotate-45">
+            <i class="fa-solid fa-gears transform -rotate-45"></i>
+          </div>
+          <div class="flex flex-wrap gap-1 justify-end">
+            <span class="tech-badge">PySpark</span><span class="tech-badge">Machine Learning</span><span class="tech-badge">Python</span>
+          </div>
+        </div>
+        <h3 class="font-heading text-lg font-bold text-slate-100 mb-4 tracking-wide">PySpark Fuel Efficiency ML Pipeline</h3>
+        <p class="text-slate-300 text-sm leading-relaxed flex-1 mb-8" dir="auto">
+          Design and development of an integrated machine learning (ML) pipeline using PySpark. This project focused on large-scale data processing, feature engineering, and building a robust predictive model to handle complex data with high efficiency.
+        </p>
+        <div class="flex mt-auto w-full">
+          <a href="https://github.com/yousefshm/PySpark_ML_Pipeline" target="_blank" class="btn-geo btn-geo-primary w-full text-center">
+            <i class="fa-brands fa-github mr-2"></i> View Code & Results
+          </a>
+        </div>
+      </div>
+      
+      <!--  
+
+      <div class="project-card glass grad-border geo-card p-8 flex flex-col reveal" style="transition-delay:.1s">
+        <div class="flex justify-between items-start mb-6">
+          <div class="w-12 h-12 rounded-sm bg-gradient-to-br from-slate-400/10 to-slate-500/10 flex items-center justify-center text-slate-300 text-xl border border-slate-400/20 transform rotate-45">
+            <i class="fa-solid fa-bullhorn transform -rotate-45"></i>
+          </div>
+          <div class="flex flex-wrap gap-1 justify-end">
+            <span class="tech-badge">Power BI</span><span class="tech-badge">SQL</span><span class="tech-badge">Integration</span>
+          </div>
+        </div>
+        <h3 class="font-heading text-lg font-bold text-slate-100 mb-4 tracking-wide">Cross-Platform Ad Campaign Analytics</h3>
+        <p class="text-slate-300 text-sm leading-relaxed flex-1 mb-8" dir="auto">
+          بناء لوحات تحكم تفاعلية لتحليل أداء الحملات الإعلانية المجمعة من منصات متعددة (Google Ads, TikTok, Facebook). تم التركيز على تنظيف البيانات وتوحيدها لاستخراج رؤى استراتيجية دقيقة تدعم اتخاذ القرارات التسويقية الفعالة.
+        </p>
+        
+        
+
+        <div class="flex mt-auto w-full gap-3">
+          <a href="https://github.com/yousefshm" target="_blank" class="btn-geo btn-geo-secondary flex-1 text-center px-2 py-3 text-xs sm:text-sm">
+            <i class="fa-brands fa-github mr-1"></i> Code
+          </a>
+          
+          <a href="رابط_الداشبورد_هنا" target="_blank" class="btn-geo btn-geo-primary flex-1 text-center px-2 py-3 text-xs sm:text-sm relative">
+            <span class="absolute top-0 right-0 -mt-1.5 -mr-1.5 flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600 shadow-[0_0_8px_rgba(220,38,38,0.8)]"></span>
+            </span>
+            <i class="fa-solid fa-satellite-dish mr-1"></i> Live Dashboard
+          </a>
+        </div>
+
+      </div>
+
+      -->
+
+      <div class="project-card glass grad-border geo-card p-8 flex flex-col reveal" style="transition-delay:.15s">
+        <div class="flex justify-between items-start mb-6">
+          <div class="w-12 h-12 rounded-sm bg-gradient-to-br from-sky-400/10 to-slate-300/10 flex items-center justify-center text-sky-300 text-xl border border-sky-400/20 transform rotate-45">
+            <i class="fa-solid fa-cloud-arrow-up transform -rotate-45"></i>
+          </div>
+          <div class="flex flex-wrap gap-1 justify-end">
+            <span class="tech-badge">JavaScript</span><span class="tech-badge">AWS</span><span class="tech-badge">SQL</span>
+          </div>
+        </div>
+        <h3 class="font-heading text-lg font-bold text-slate-100 mb-4 tracking-wide">WellWise: Cloud Web Application</h3>
+        <p class="text-slate-300 text-sm leading-relaxed flex-1 mb-8" dir="auto">
+          WellWise is a Cloud Web Application created with the aim of helping the user calculate his daily protein and calorie needs and then order meals based on the amount of nutrients the user needs in his meal.
+        </p>
+        
+        <div class="flex mt-auto w-full gap-3">
+          <a href="https://github.com/yousefshm/WellWise" target="_blank" class="btn-geo btn-geo-secondary flex-1 text-center px-2 py-3 text-xs sm:text-sm">
+            <i class="fa-brands fa-github mr-1"></i> Code
+          </a>
+          
+          <a href="http://wellwise.info/" target="_blank" class="btn-geo btn-geo-primary flex-1 text-center px-2 py-3 text-xs sm:text-sm relative">
+            <span class="absolute top-0 right-0 -mt-1.5 -mr-1.5 flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600 shadow-[0_0_8px_rgba(220,38,38,0.8)]"></span>
+            </span>
+            <i class="fa-solid fa-satellite-dish mr-1"></i> Live View
+          </a>
+        </div>
+        
+      </div>
+
+      <div class="project-card glass grad-border geo-card p-8 flex flex-col reveal" style="transition-delay:.2s">
+        <div class="flex justify-between items-start mb-6">
+          <div class="w-12 h-12 rounded-sm bg-gradient-to-br from-sky-400/10 to-orange-500/10 flex items-center justify-center text-sky-400 text-xl border border-sky-400/20 transform rotate-45">
+            <i class="fa-solid fa-gears transform -rotate-45"></i>
+          </div>
+          <div class="flex flex-wrap gap-1 justify-end">
+            <span class="tech-badge">Python Scraping</span><span class="tech-badge">Pandas</span><span class="tech-badge">Looker Studio</span>
+          </div>
+        </div>
+        <h3 class="font-heading text-lg font-bold text-slate-100 mb-4 tracking-wide">ETL Data Processing Pipeline</h3>
+        <p class="text-slate-300 text-sm leading-relaxed flex-1 mb-8" dir="auto">
+          A lightweight ETL pipeline that processes person data from multiple file formats, converts measurements to metric units, and consolidates the results.
+        </p>
+        <div class="flex mt-auto w-full">
+          <!-- <a href="https://github.com/yousefshm" target="_blank" class="btn-geo btn-geo-secondary w-full text-center"><i class="fa-solid fa-chart-column mr-2"></i> View Analytics Report</a> -->
+          <a href="https://github.com/yousefshm/IBM-Data-Engineering/tree/main/Course_03_Python_project_for_Data_Engineering" target="_blank" class="btn-geo btn-geo-secondary w-full text-center">
+            <i class="fa-brands fa-github mr-2"></i> View Project Source
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card glass grad-border geo-card p-8 flex flex-col reveal">
+        <div class="flex justify-between items-start mb-6">
+          <div class="w-12 h-12 rounded-sm bg-gradient-to-br from-slate-600/10 to-slate-700/10 flex items-center justify-center text-slate-400 text-xl border border-slate-600/30 transform rotate-45">
+            <i class="fa-solid fa-hourglass-half transform -rotate-45"></i>
+          </div>
+          <div class="flex flex-wrap gap-1 justify-end">
+            <span class="tech-badge border-sky-400/30 text-sky-400"><i class="fa-solid fa-person-digging mr-1"></i> Work in Progress</span>
+          </div>
+        </div>
+        
+        <h3 class="font-heading text-lg font-bold text-slate-100 mb-4 tracking-wide">Cloud Skills Job Market Analyzer</h3>
+        
+        <p class="text-slate-400 text-sm leading-relaxed flex-1 mb-8 opacity-80" dir="auto">
+          Extracting and analyzing cloud job data (AWS, Azure, GCP) from recruitment platforms. The project aims to identify the most in-demand skills and technologies in the job market using web scraping and interactive data visualization techniques. Technical details will be published soon.
+        </p>
+        
+        <div class="flex mt-auto w-full">
+          <button disabled class="btn-geo btn-geo-secondary w-full text-center opacity-40 cursor-not-allowed">
+            <i class="fa-solid fa-lock mr-2"></i> Coming Soon
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="awards" class="py-24 relative bg-slate-900/50">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-14 reveal">
+      <h2 class="font-heading text-3xl font-bold text-slate-100 section-heading inline-block">
+        Professional <span class="grad-text">Credentials</span>
+      </h2>
+      <p class="text-slate-400 mt-5 max-w-xl mx-auto text-sm">Industry-recognized certifications validating data engineering expertise.</p>
+    </div>
+
+    <div class="cert-card glass grad-border geo-card p-8 flex flex-col sm:flex-row items-center sm:items-start gap-8 mb-8 reveal shadow-2xl">
+      <div class="flex-shrink-0 w-24 h-24 geo-card bg-gradient-to-br from-[#0f62fe]/20 to-transparent
+                  flex items-center justify-center border border-[#0f62fe]/40 shadow-[0_0_20px_rgba(15,98,254,0.2)]">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="w-16 h-auto opacity-90" />
+      </div>
+      <div class="flex-1 text-center sm:text-left">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-3">
+          <span class="text-xs font-bold tracking-widest text-sky-300 uppercase">Professional Certificate</span>
+          <span class="px-3 py-1 rounded-sm text-[10px] font-bold bg-sky-500/10 border border-sky-500/30 text-sky-200">Completed Nov 2025</span>
+        </div>
+        <h3 class="font-heading text-xl font-bold text-slate-100 mb-3">IBM Data Engineering Professional Certificate</h3>
+        <p class="text-slate-400 text-sm leading-relaxed max-w-2xl">
+          An intensive 16-course program covering the complete Data Engineering ecosystem. Validated skills in designing, building, and managing scalable data pipelines, utilizing relational/NoSQL databases, and deploying machine learning models.
+        </p>
+      </div>
+    </div>
+
+    <div class="cert-card glass grad-border geo-card p-8 flex flex-col sm:flex-row items-center sm:items-start gap-8 mb-8 reveal shadow-2xl" style="transition-delay:.15s">
+      <div class="flex-shrink-0 w-24 h-24 geo-card bg-gradient-to-br from-[#d4af37]/20 to-transparent
+                  flex items-center justify-center text-5xl text-[#d4af37] border border-[#d4af37]/40 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+        <i class="fa-solid fa-award"></i>
+      </div>
+      <div class="flex-1 text-center sm:text-left">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-3">
+          <span class="text-xs font-bold tracking-widest text-slate-300 uppercase">Global Certification</span>
+          <span class="px-3 py-1 rounded-sm text-[10px] font-bold bg-slate-500/10 border border-slate-500/30 text-slate-200">Active</span>
+        </div>
+        <h3 class="font-heading text-xl font-bold text-slate-100 mb-3">CDMP Associate</h3>
+        <p class="text-slate-400 text-sm leading-relaxed max-w-2xl">
+          Certified Data Management Professional by DAMA International. Demonstrates comprehensive understanding of Data Governance, Data Modeling, Master Data Management, and established best practices for enterprise-level data strategy.
+        </p>
+      </div>
+    </div>
+
+    <div class="cert-card glass grad-border geo-card p-8 flex flex-col sm:flex-row items-center sm:items-start gap-8 reveal shadow-2xl" style="transition-delay:.15s">
+      <div class="flex-shrink-0 w-24 h-24 geo-card bg-gradient-to-br from-orange-600/20 to-sky-400/10
+                  flex items-center justify-center text-5xl text-sky-400 border border-sky-500/30">
+        <i class="fa-brands fa-aws"></i>
+      </div>
+      <div class="flex-1 text-center sm:text-left">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-3">
+          <span class="text-xs font-bold tracking-widest text-slate-300 uppercase">Professional Certificate</span>
+          <span class="px-3 py-1 rounded-sm text-[10px] font-bold bg-slate-500/10 border border-slate-500/30 text-slate-200">In Progress</Progress></span>
+        </div>
+        <h3 class="font-heading text-xl font-bold text-slate-100 mb-3">AWS Certified Data Engineer - Associate</h3>
+        <p class="text-slate-400 text-sm leading-relaxed max-w-2xl">
+          covers essential AWS services and skills like data storage, analytics, and security, crucial for a data engineering role.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact" class="relative py-20 border-t border-slate-800">
+  <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+    <h2 class="font-heading text-3xl sm:text-4xl font-black text-slate-100 mb-4 reveal">
+      Ready to Scale <span class="grad-text">Your Data?</span>
+    </h2>
+    <p class="text-slate-400 text-base max-w-xl mx-auto mb-10 reveal" style="transition-delay:.1s">
+      Whether you need robust ETL pipelines, advanced ML models, or strategic BI dashboards — let's build something powerful together.
+    </p>
+    
+    <div class="flex justify-center gap-6 mb-12 reveal" style="transition-delay:.2s">
+      <a href="mailto:yousefalmotawea@gmail.com" aria-label="Email"
+         class="w-14 h-14 glass geo-card flex items-center justify-center text-slate-300 text-xl
+                hover:text-sky-300 hover:border-sky-400/50 hover:bg-sky-400/5 transition-all duration-300 border border-slate-700" title="Email">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/yousef-almotawea-cdmp%C2%AE-730003238/" target="_blank" aria-label="LinkedIn"
+         class="w-14 h-14 glass geo-card flex items-center justify-center text-slate-300 text-xl
+                hover:text-[#0077B5] hover:border-[#0077B5] hover:bg-sky-400/5 transition-all duration-300 border border-slate-700" title="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="https://github.com/yousefshm" target="_blank" aria-label="GitHub"
+         class="w-14 h-14 glass geo-card flex items-center justify-center text-slate-300 text-xl
+                hover:text-sky-300 hover:border-sky-400/50 hover:bg-sky-400/5 transition-all duration-300 border border-slate-700" title="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="https://wa.me/00966559535827" target="_blank" aria-label="WhatsApp"
+         class="w-14 h-14 glass geo-card flex items-center justify-center text-slate-300 text-xl
+                hover:text-green-400 hover:border-green-400/40 transition-all duration-200 border border-slate-700/60" title="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+
+      </a>
+    </div>
+
+    <div class="flex items-center justify-center gap-4 mb-6">
+      <div class="h-px w-12 bg-slate-800"></div>
+      <span class="font-heading text-sm font-bold grad-text tracking-widest uppercase">Yousef</span>
+      <div class="h-px w-12 bg-slate-800"></div>
+    </div>
+    <p class="text-slate-500 text-xs font-medium leading-relaxed">
+      &copy; <span id="copy-year"></span> Yousef Almotawea &nbsp;·&nbsp; All rights reserved. <br>
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("copy-year").textContent = new Date().getFullYear();
+
+  /* Mobile menu */
+  const hamburger  = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const hamIcon    = document.getElementById("ham-icon");
+  let menuOpen = false;
+  hamburger.addEventListener("click", () => {
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      mobileMenu.classList.remove("hidden"); mobileMenu.classList.add("open");
+      hamIcon.classList.replace("fa-bars","fa-xmark");
+    } else { closeMobile(); }
+  });
+  function closeMobile() {
+    menuOpen = false;
+    mobileMenu.classList.remove("open"); mobileMenu.classList.add("hidden");
+    hamIcon.classList.replace("fa-xmark","fa-bars");
+  }
+
+  /* Scroll-reveal */
+  const revealEls = document.querySelectorAll(".reveal");
+  const observer  = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
+  }, { threshold: 0.10 });
+  revealEls.forEach(el => observer.observe(el));
+
+  /* Typing animation */
+  const phrases = ["Data Engineer", "Data Analyst", "CDMP Associate", "IBM Certified"];
+  let pi = 0, ci = 0, del = false;
+  const typedEl = document.getElementById("typed-text");
+  function type() {
+    const cur = phrases[pi];
+    if (!del) {
+      typedEl.textContent = cur.slice(0, ++ci);
+      if (ci === cur.length) { del = true; setTimeout(type, 1800); return; }
+    } else {
+      typedEl.textContent = cur.slice(0, --ci);
+      if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; setTimeout(type, 500); return; }
+    }
+    setTimeout(type, del ? 40 : 80);
+  }
+  type();
+
+  /* Navbar shrink */
+  window.addEventListener("scroll", () => {
+    document.getElementById("navbar").classList.toggle("py-2", window.scrollY > 60);
+    document.getElementById("navbar").classList.toggle("py-4", window.scrollY <= 60);
+  }, { passive: true });
+
+  /* Hero reveal on load */
+  window.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("#hero .reveal").forEach((el, i) => {
+      setTimeout(() => el.classList.add("visible"), 200 + i * 150);
+    });
+  });
+
+  /* ScrollSpy: Highlight Navbar items dynamically */
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll("#navbar ul li a");
+
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= sectionTop - 250) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active-nav");
+      if (link.getAttribute("href").includes(current) && current !== "") {
+        link.classList.add("active-nav");
+      }
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
